@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-var regedit = require('regedit')
+const regedit = require('regedit')
 
 export default (req, res) => {
   let results = [];
@@ -17,6 +17,4 @@ export default (req, res) => {
     console.log('list operation finished')
     res.status(200).json({ appid: appId });
   });
-
-
 }
