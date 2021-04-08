@@ -1,17 +1,21 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
+import {ListGroup, Form, Badge, Button, Col, Row} from 'react-bootstrap'
 
 class ProcessList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {processes: null};
+    this.state = {
+      processes: null,
+      procselected: null
+    };
   }
 
   componentDidMount() {
     this.updateProcessList();
+    // Keep polling running processes / updating the list
     this.timerID = setInterval(
       async () => await this.tick(),
-      3000
+      1000
     );
   }
 
@@ -19,6 +23,7 @@ class ProcessList extends React.Component {
     clearInterval(this.timerID);
   }
 
+  // Fetch process list on the system, set list of process names in state
   async updateProcessList() {
     const r = await fetch('http://localhost:3000/api/processes');
     const jsondata = await r.json();
@@ -27,30 +32,60 @@ class ProcessList extends React.Component {
 
   async tick() {
     this.updateProcessList();
+  }
 
-    // fetch('http://localhost:3000/api/processes')
-    //   .then((result) => result.json())
-    //   .then(data => console.log(data));
+  processClicked(index) {
+    this.setState({procselected: this.state.processes[index]});
   }
 
   render() {
     if (!this.state.processes) {
-      return <div>HAVENT LOADED PROCESSES YET</div>
+      return <div>Loading process list...</div>
     }
-    console.log(this.state.processes)
+
     return (
-      <div class="proclist">
-        <Table striped bordered rounded hover size="sm">
-          <tbody>
+      <div className="proclistmain">
+        <div className="procheader">
+          <h4>Select a game&nbsp;&nbsp;<Badge variant="light">{this.state.processes.length}</Badge></h4>
+          <div className="helptext">Select a game from the list of currently running processes.</div>
+        </div>
+        <ListGroup className="proclistgroup">
+          {/* Output each process name in the list as a clickable list group item */}
           {this.state.processes.map((val, index) => {
             return (
-              <tr>
-                <td>{val}</td>
-              </tr>
+              <ListGroup.Item action key={index} className="procitem"
+                id={`proclist-item${index}`}
+                onClick={(e) => this.processClicked(index)}>
+                {val}
+              </ListGroup.Item>
             );
           })}
-          </tbody>
-        </Table>
+        </ListGroup>
+
+        <div id="proclistcontrols">
+          {/* Display selected process if one exists */}
+          {this.state.procselected &&
+          <div className="procitem">
+            Selected: {this.state.procselected}
+          </div>}
+
+          <Form inline>
+            <Form.Label htmlFor="gamename" srOnly>
+              Game name
+            </Form.Label>
+            <Form.Control
+              id="gamename"
+
+              placeholder='Notebook title goes here (e.g.: Dead Cells)'
+            />
+
+            <Button disabled={this.state.procselected === null} type="submit"
+                   className="ml-1">
+              Create notes
+            </Button>
+
+          </Form>
+        </div>
       </div>
     );
   }

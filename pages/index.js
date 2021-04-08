@@ -1,6 +1,5 @@
 import React from 'react';
 
-import 'antd/dist/antd.css';
 import { Tree } from 'antd';
 import ProcessList from '../components/processlist'
 
