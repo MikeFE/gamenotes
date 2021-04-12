@@ -4,81 +4,93 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import CustomEditor from 'ckeditor5-custom-build/build/ckeditor';
 
 class NoteEditor extends React.Component {
-  editorConfig = {
-    toolbar: {
-      items: [
-        'heading',
-        '|',
-        'fontFamily',
-        'fontSize',
-        'fontColor',
-        'highlight',
-        '|',
-        'bold',
-        'italic',
-        'underline',
-        'strikethrough',
-        'link',
-        '|',
-        'bulletedList',
-        'numberedList',
-        'removeFormat',
-        '|',
-        'alignment',
-        'outdent',
-        'indent',
-        '|',
-        'horizontalLine',
-        'blockQuote',
-        'insertTable',
-        'mediaEmbed',
-        'codeBlock',
-        'fontBackgroundColor',
-        'code',
-        '|',
-        'undo',
-        'redo'
-      ]
-    },
-    language: 'en',
-    image: {
-      toolbar: [
-        'imageTextAlternative',
-        'imageStyle:full',
-        'imageStyle:side'
-      ]
-    },
-    table: {
-      contentToolbar: [
-        'tableColumn',
-        'tableRow',
-        'mergeTableCells',
-        'tableCellProperties',
-        'tableProperties'
-      ]
-    },
-    licenseKey: '',
-    autosave: {
-      save(editor) {
-        const data = editor.getData();
-        return new Promise( resolve => {
-            setTimeout( () => {
-                console.log( 'Saved', data );
-
-                resolve();
-            }, 1000 );
-        } );
-      }
-    }
-  };
-
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {gameName: null, noteName: null};
+
+    this.editorConfig = {
+      toolbar: {
+        items: [
+          'heading',
+          '|',
+          'fontFamily',
+          'fontSize',
+          'fontColor',
+          'highlight',
+          '|',
+          'bold',
+          'italic',
+          'underline',
+          'strikethrough',
+          'link',
+          '|',
+          'bulletedList',
+          'numberedList',
+          'removeFormat',
+          '|',
+          'alignment',
+          'outdent',
+          'indent',
+          '|',
+          'horizontalLine',
+          'blockQuote',
+          'insertTable',
+          'mediaEmbed',
+          'codeBlock',
+          'fontBackgroundColor',
+          'code',
+          '|',
+          'undo',
+          'redo'
+        ]
+      },
+      language: 'en',
+      image: {
+        toolbar: [
+          'imageTextAlternative',
+          'imageStyle:full',
+          'imageStyle:side'
+        ]
+      },
+      table: {
+        contentToolbar: [
+          'tableColumn',
+          'tableRow',
+          'mergeTableCells',
+          'tableCellProperties',
+          'tableProperties'
+        ]
+      },
+      licenseKey: '',
+      autosave: {
+        save: (editor) => this.saveData(editor.getData())
+      }
+    };
   }
 
   saveData(data) {
-    console.log("Saving data");
+    // return new Promise( resolve => {
+    //   setTimeout( () => {
+    //       console.log(`Saved ${data.length} bytes`);
+
+    //       resolve();
+    //   }, 1000 );
+    // });
+
+    const postData = {
+      gameName: this.state.gameName,
+      noteName: this.state.noteName,
+      noteData: data
+    };
+
+    return fetch('http://localhost:3000/api/savenote',
+      {
+        method: 'POST',
+        body: JSON.stringify(postData)
+      }
+    ).then((r) => {
+      r.json().then(v => console.log(v.message));
+    });
   }
 
   componentDidMount() {
@@ -98,16 +110,6 @@ class NoteEditor extends React.Component {
             onReady={ editor => {
                 // You can store the "editor" and use when it is needed.
                 console.log( 'Editor is ready to use!', editor );
-            } }
-            onChange={ ( event, editor ) => {
-                const data = editor.getData();
-                console.log( { event, editor, data } );
-            } }
-            onBlur={ ( event, editor ) => {
-                console.log( 'Blur.', editor );
-            } }
-            onFocus={ ( event, editor ) => {
-                console.log( 'Focus.', editor );
             } }>
         </CKEditor>
       </div>
