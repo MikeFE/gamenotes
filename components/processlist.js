@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListGroup, Form, Badge, Button, Col, Row} from 'react-bootstrap'
+import {ListGroup, Form, Badge, Button} from 'react-bootstrap'
 
 class ProcessList extends React.Component {
   constructor(props) {
@@ -75,12 +75,10 @@ class ProcessList extends React.Component {
             </Form.Label>
             <Form.Control
               id="gamename"
-
-              placeholder='Notebook title goes here (e.g.: Dead Cells)'
+              placeholder='Game name goes here (e.g.: Dead Cells)'
             />
 
-            <Button disabled={this.state.procselected === null} type="submit"
-                   className="ml-1">
+            <Button disabled={this.state.procselected === null} type="submit" className="ml-1">
               Create notes
             </Button>
 

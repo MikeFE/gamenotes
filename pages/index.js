@@ -1,7 +1,14 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-import { Tree } from 'antd';
+import {Container} from '@material-ui/core'
 import ProcessList from '../components/processlist'
+import Menu from '../components/menu'
+
+// CKEditor 5 uses a bunch of references to 'window' in its code,
+// we need to dynamically load here and tell Next not to use SSR,
+// only run this component in the browser where 'window' is defined.
+const NoteEditor = dynamic(() => import('../components/editor'), {ssr: false});
 
 const treeData = [
   {
@@ -57,18 +64,13 @@ export default function Home() {
 
   return (
     <div>
-        {/* <Tree
-          checkable
-          defaultExpandedKeys={['0-0-0', '0-0-1']}
-          defaultSelectedKeys={['0-0-0', '0-0-1']}
-          defaultCheckedKeys={['0-0-0', '0-0-1']}
-          onSelect={onSelect}
-          onCheck={onCheck}
-          treeData={treeData}
-        /> */}
-
-        <ProcessList />
-
+      <Container className="header" maxWidth="sm">
+        header here
+      </Container>
+      <Container className="content" maxWidth="sm" disableGutters>
+        <NoteEditor />
+      </Container>
+      {/*<ProcessList />*/}
     </div>
   )
 }
