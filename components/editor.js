@@ -63,7 +63,7 @@ class NoteEditor extends React.Component {
       },
       licenseKey: '',
       autosave: {
-        save: (editor) => this.saveData(editor.getData())
+        save: editor => this.saveData(editor.getData())
       }
     };
   }
@@ -104,7 +104,7 @@ class NoteEditor extends React.Component {
     return (
       <div>
         <CKEditor
-            editor={ CustomEditor }
+            editor={CustomEditor}
             config={this.editorConfig}
             data="<p>Hello from CKEditor 5!</p>"
             onReady={ editor => {

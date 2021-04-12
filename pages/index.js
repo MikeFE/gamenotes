@@ -1,7 +1,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-import {Container} from '@material-ui/core'
+import {Container} from '@material-ui/core';
+import Alert from 'react-bootstrap/Alert'
+
 import ProcessList from '../components/processlist'
 import Menu from '../components/menu'
 
@@ -9,49 +11,6 @@ import Menu from '../components/menu'
 // we need to dynamically load here and tell Next not to use SSR,
 // only run this component in the browser where 'window' is defined.
 const NoteEditor = dynamic(() => import('../components/editor'), {ssr: false});
-
-const treeData = [
-  {
-    title: 'parent 1',
-    key: '0-0',
-    children: [
-      {
-        title: 'parent 1-0',
-        key: '0-0-0',
-        disabled: true,
-        children: [
-          {
-            title: 'leaf',
-            key: '0-0-0-0',
-            disableCheckbox: true,
-          },
-          {
-            title: 'leaf',
-            key: '0-0-0-1',
-          },
-        ],
-      },
-      {
-        title: 'parent 1-1',
-        key: '0-0-1',
-        children: [
-          {
-            title: (
-              <span
-                style={{
-                  color: '#1890ff',
-                }}
-              >
-                sss
-              </span>
-            ),
-            key: '0-0-1-0',
-          },
-        ],
-      },
-    ],
-  },
-];
 
 export default function Home() {
   const onSelect = (selectedKeys, info) => {
@@ -64,10 +23,12 @@ export default function Home() {
 
   return (
     <div>
-      <Container className="header" maxWidth="sm">
-        header here
+      <Container className="header container-shadow" maxWidth="sm">
+        <Alert variant="primary" className="status">
+          Test message
+        </Alert>
       </Container>
-      <Container className="content" maxWidth="sm" disableGutters>
+      <Container className="content container-shadow" maxWidth="sm" disableGutters>
         <NoteEditor />
       </Container>
       {/*<ProcessList />*/}

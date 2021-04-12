@@ -37,3 +37,4 @@ yarn-error.log*
 .vscode
 vscode-*.cpuprofile
 package-lock.json
+test/notes
