@@ -23,10 +23,11 @@ export default function Home() {
 
   return (
     <div>
-      <Container className="header container-shadow" maxWidth="sm">
-        <Alert variant="primary" className="status">
-          Test message
-        </Alert>
+      <Container className="header container-shadow" maxWidth="sm" disableGutters>
+        <div className="titlebar">
+          <i class="fas fa-3x fa-file-alt note-icon" />
+          <h4 className="mb-0 mt-2">Test Game - Example Note 1</h4>
+        </div>
       </Container>
       <Container className="content container-shadow" maxWidth="sm" disableGutters>
         <NoteEditor />
