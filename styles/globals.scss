@@ -1,15 +1,25 @@
+$bg-color: rgb(27, 40, 56);
+
 body {
-  background-color: rgb(27, 40, 56);
+  background-color: $bg-color;
 }
 
-.MuiContainer-root {
-  background-color: rgb(47, 52, 63);
-  border-radius: 2px;
+#root {
+  max-width: 100%;
 }
 
-.header {
-  height: 8vh;
-  margin: 10px 10px 10px 10px;
+.grid-container {
+  margin: auto;
+  justify-content: center;
+  max-width: 95%;
+}
+
+.grid-item {
+  background-color: rgb(23, 35, 49);
+  margin: 3px;
+  &-empty {
+    background-color: $bg-color; // Empty grid items blend into background
+  }
 }
 
 .content {
@@ -21,7 +31,11 @@ body {
 .titlebar {
   display: flex;
   align-items: center;
-  padding: 10px;
+}
+
+// MUI grid items add top/left padding but no bottom padding..
+.MuiGrid-item {
+  padding-bottom: 8px;
 }
 
 .note-icon {
