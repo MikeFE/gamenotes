@@ -83,7 +83,7 @@ class NoteEditor extends React.Component {
       noteData: data
     };
 
-    return fetch('http://localhost:3000/api/savenote',
+    return fetch(process.env.BASEURL + '/api/savenote',
       {
         method: 'POST',
         body: JSON.stringify(postData)

@@ -1,4 +1,4 @@
-$bg-color: rgb(27, 40, 56);
+@use 'color.scss' as *;
 
 body {
   background-color: $bg-color;

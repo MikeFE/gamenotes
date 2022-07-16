@@ -1,4 +1,4 @@
-import fs from "fs"
+import fs from 'fs'
 
 // data should be JSON.parse(request.body)
 const checkFields = (data, props) => {
