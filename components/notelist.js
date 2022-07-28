@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import GamesIcon from '@mui/icons-material/SportsEsports';
 
 class NoteList extends React.Component {
   constructor(props) {
@@ -29,14 +30,17 @@ class NoteList extends React.Component {
     });
 
     return (
-      <List
-        sx={{ width: '100%', maxWidth: 360 }}
-        component="nav">
-        <div className='list-header'>Games</div>
+      <div className='note-list'>
+        <List
+          sx={{ width: '100%', maxWidth: 360 }}
+          component="nav">
+          <div className='list-header'>
+              <h5><GamesIcon />Games</h5>
+          </div>
 
-        {gameList}
-
-      </List>
+          {gameList}
+        </List>
+      </div>
     )
   }
 

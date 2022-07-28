@@ -1,9 +1,25 @@
 @use 'color.scss' as *;
 
+.note-list {
+  // Enforce 100% max header width in note list component, MUI was adding in
+  // a hardcoded max size for some reason leading to the header not fully
+  // taking up the side bar when using <List>.
+  .MuiList-root {
+    max-width: 100%;
+  }
+}
+
 .list-header {
   background-color: $header-color;
   margin: 0px;
   margin-left: -8px;
   margin-top: -16px;
+}
+
+.list-header > h5 {
   padding: 5px;
+  svg {
+    margin-top: -5px;
+    margin-right: 5px;
+  }
 }
