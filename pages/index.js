@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import {Grid, Paper} from '@mui/material';
 import NoteList from '../components/notelist'
+import ProcessList from '../components/processlist';
 
 // CKEditor 5 uses a bunch of references to 'window' in its code,
 // we need to dynamically load here and tell Next not to use SSR,

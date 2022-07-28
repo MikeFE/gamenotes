@@ -13,7 +13,7 @@ export default async (req, res) => {
   //   });
   // });
 
-  const procList = await psList()
+  const procList = await psList();
   const procNames = new Set(procList.map(proc => proc.name));
   res.status(200).json({processes: Array.from(procNames)});
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -8,47 +8,30 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import GamesIcon from '@mui/icons-material/SportsEsports';
 
-class NoteList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {games: props.games};
-  }
+function NoteList(props) {
+  const [games, setGames] = useState(props.games);
 
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
-  renderTree() {
-    const gameList = Object.keys(this.state.games).map((game, idx) => {
-      return (
-        <ListItemButton>
-          <ListItemText primary={game} key={idx} />
-        </ListItemButton>
-      )
-    });
-
+  const gameList = Object.keys(games).map((game, idx) => {
     return (
-      <div className='note-list'>
-        <List
-          sx={{ width: '100%', maxWidth: 360 }}
-          component="nav">
-          <div className='list-header'>
-              <h5><GamesIcon />Games</h5>
-          </div>
-
-          {gameList}
-        </List>
-      </div>
+      <ListItemButton>
+        <ListItemText primary={game} key={idx} />
+      </ListItemButton>
     )
-  }
+  });
 
-  render() {
-    return (
-      <div>{this.renderTree()}</div>
-    )
-  }
+  return (
+    <div className='note-list'>
+      <List
+        sx={{ width: '100%', maxWidth: 360 }}
+        component="nav">
+        <div className='list-header'>
+            <h5><GamesIcon />Games</h5>
+        </div>
+
+        {gameList}
+      </List>
+    </div>
+  )
 }
 
 export default NoteList;
