@@ -1,7 +1,9 @@
+@use 'color.scss' as *;
+
 .proclistmain {
   min-width: 600px;
   width: 600px;
-  border: 2px solid #375a7f;
+  border: 2px solid $header-color;
   border-radius: 4px;
   margin: 5px;
 }
@@ -9,7 +11,7 @@
 .procheader {
   padding: 5px;
   margin-bottom: 0px;
-  background-color: #375a7f;
+  background-color: $header-color;
 }
 
 .procheader > h4 {
@@ -30,7 +32,7 @@
 }
 
 #proclistcontrols {
-  border-top: 2px solid #375a7f;
+  border-top: 2px solid $header-color;
   padding: 3px;
   margin-right: -3px;
 }
